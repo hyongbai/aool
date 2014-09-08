@@ -1,0 +1,20 @@
+#if [ "$USER" != "root" ]; then
+	#echo "You need to start WEBUG run as root" 
+#else
+#fi
+	setprop service.adb.tcp.port 5555
+	#setprop service.adb.tcp.port -1#to stop webug
+	stop adbd
+	start adbd
+	#get ip of your device,eg:"xx.xx.x.x"
+	#busybox ifconfig | sed -n 'wlan0,$p' | grep -i Mask | awk '{print $2}'
+	ip=$(busybox ifconfig wlan0|busybox grep inet |busybox sed '1!d' |busybox awk '{print $2}' |busybox awk -F: '{print $2}')
+	echo
+	echo "----------------------do follows in your desk----------------------"
+	echo
+	#echo "		do follows in your desk"
+	echo "		adb connect $ip:5555"
+	echo "		adb devices"
+	echo
+	echo "-------------------------------------------------------------------"
+	echo

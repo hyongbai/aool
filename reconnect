@@ -1,0 +1,37 @@
+#!/bin/bash
+IP=`ifconfig |grep inet| sed -n '1p'|awk '{print $2}'|awk -F ':' '{print $2}'`
+echo
+echo "-------------------------------------------------------------"
+echo
+echo "		Your IP address is \"$IP\"";
+echo
+echo "-------------------------------------------------------------"
+echo
+
+if [ "`echo $IP | grep 192.168.0`" ]; then
+	prefix="192.168.0"
+	dft=97
+elif [ "`echo $IP | grep 10.32`" ]; then
+	prefix="10.32.5"
+	dft=216
+else
+	prefix="192.168.1"
+	dft=97
+fi
+
+if [ "$1" = "" ];then
+	addr=$prefix.$dft;
+else
+	addr=$prefix.$1;
+fi
+
+echo
+echo
+echo "--------------------your device is $addr--------------------"
+echo
+echo
+adb disconnect	$addr
+adb connect	$addr
+#SHOW ALL DEVICES
+adevices
+

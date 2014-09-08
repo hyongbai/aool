@@ -1,0 +1,46 @@
+#!/bin/bash
+source basic-method
+#basic-method
+sum=0
+count=0
+comm="procrank"
+prog="com.yunio"
+if [ $1 ]; then
+    prog=$1
+fi
+has_device
+check_device
+echo "--------------------------------------    $prog , `date +\"%y-%m-%d\"`   ------------------------------"
+while :
+do
+  #echo -n "input a number:"
+  #read Val
+  #expr $Val + 1 > /dev/null 2>
+  #res=$?
+  #if [ "$Val" = "" ] || [ "$res" != "0" ]; then
+  #   echo "what you input is not a number!"
+  #else
+  #  echo "what you input is : $Val"
+  #   break;
+  #fi
+  resu=$(adb -s $dev shell $comm | grep -i $prog)
+  check=$(adb -s $dev shell $comm | grep procrank | grep "not found")
+  if [ "$check" ]; then
+      echo "command $comm is not found !!!!"
+      break
+  elif [ "$resu" == "" ]; then
+      echo "progress $prog is not found "
+      break;
+  else
+      count=$(expr $count + 1)
+      uss=$(adb -s $dev shell $comm | grep -i $prog | awk '{print $5}' | cut -d 'K' -f 1)
+      sum=$(expr $sum + $uss)
+      ave=$(echo "scale=2;$sum/$count"|bc)
+      cpu=$(adb -s $dev shell dumpsys cpuinfo | grep $prog | awk '{print $1}')
+      time=`date +"%H:%M:%S"`
+      echo "USS: cpu=$cpu	cur=$uss(kb)	ave=$ave(kb)	time=$time"
+  fi
+  sleep 1;
+done
+#echo "USS of com.yunio : now=$resu, ave=$ave, count=$count"
+

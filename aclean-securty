@@ -1,0 +1,15 @@
+#!/bin/bash
+echo -e '\033[0;33;1mWaring continue: Y/N \033[0m'
+read resu
+if [ $resu == "N" ]; then
+    exit
+fi
+
+adb shell mv  /data/system/access_control.key  /data/system/access_control.key.bkup
+echo "清除访问限制密码，完成！"
+
+adb shell mv  /data/system/gesture.key /data/system/gesture.key.bkup
+echo "清除锁屏图形密码，完成！"
+
+adb shell mv  /data/system/password.key /data/system/password.key.bkup
+echo "清除锁屏数字及字母密码，完成！"

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+timestamp=`date '+%Y%m%d-%H%M%S'`
+file=ascreenshot-$timestamp.png
+path=/sdcard/DCIM/Screenshots/$file
+adb shell mkdir /sdcard/DCIM/Screenshots
+adb shell /system/bin/screencap -p $path
+adb pull $path
+
+echo "----------------------------------------------------------"
+echo
+echo -e "               \033[;33;1m$file\033[0m"
+echo
+echo "----------------------------------------------------------"
+echo
+
+if [ `uname` ==  "Darwin" ]; then
+    #eog $file
+    echo "U R USING MAC"
+else
+    eog $file
+fi

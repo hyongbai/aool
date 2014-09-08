@@ -1,0 +1,8 @@
+#!/bin/bash
+if [ $1 ]; then
+    dev="$1"
+fi 
+source $toolbin/basic-method
+check_device
+adb -s $dev shell
+
