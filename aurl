@@ -1,0 +1,18 @@
+#!/bin/bash
+
+function print_help()
+{
+    echo "--------"
+    echo "TIPS:"
+    echo "  if you want to tel, input tel://{phoneNum}"
+    echo "  if you want to browser a website, input http://(or https://)google.com"
+    echo "--------"
+}
+
+if [ $1 ]; then
+    echo $1
+    adb shell am start -a android.intent.action.VIEW --user 0 -d $1
+else
+    echo -e "PLEASE INPUT URL"
+    echo "$(print_help)"
+fi

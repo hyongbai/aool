@@ -16,26 +16,63 @@ function help_logcat()
 	echo
 }
 
+function wrap_log_pid()
+{
+	if [ $1 ]; then
+		echo "$1\)\:"
+	fi
+}
+
 function choose_package()
 {
-    #echo "start choose_package package = $OPTARG"
-	#get process id of this package
-    #psresult=`adb shell ps | sed '1!d'`
+    #get the section num of PID
     psresult=`adb shell ps | grep -v "\:" | sed '1!d'`
     for i in `seq 3`
     do
             lineresult=`echo $psresult | cut -d ' ' -f $i`
             if [ "$lineresult" == "PID" ]; then
                 num=$i
-                echo "line is $num"
                 break
             fi
     done
+
+    #get PID
     if [ "$OPTARG" ]; then
-        pid=`adb shell ps |grep $OPTARG | sed '1!d' |awk '{print $'$num'}'`
+        #pid=`adb shell ps |grep $OPTARG | sed '1!d' |awk '{print $'$num'}'`
+        pid=`adb shell ps |grep $OPTARG|awk '{print $'$num'}'`
 	fi
-    echo "pid is $pid  num is $num"
-	echo "done  choose_package pid = $pid pkg=$OPTARG"
+
+	#
+	tempWrappedIdFile=".tempWrappedIdFile"
+	if [ "$pid" ]; then
+		echo "$pid" | while read line
+		do
+			wrappedId=`wrap_log_pid $line`
+			if [ "$multiPID" ]; then
+				wrappedId="\|"$wrappedId
+			fi
+			multiPID="$multiPID$wrappedId"
+			echo "$multiPID" > $tempWrappedIdFile
+		done
+	else
+		return
+	fi
+	pid=`cat $tempWrappedIdFile`
+	rm $tempWrappedIdFile
+	echo "$pid"
+}
+
+function show_process_log()
+{
+	choose_package
+	######SHOW LOGS######
+
+	echo
+	if [ "$pid" ]; then
+	    $adb | grep $pid\)\:
+	else
+		show_all_log
+	fi
 }
 
 function hide_line()
@@ -49,11 +86,21 @@ function hide_line()
 	fi
 }
 
-function set_tag(){
+function set_tag()
+{
 	if [ "$OPTARG" ]; then
 		echo "TAG is $OPTARG"
 		adb="$adb -s $OPTARG"
 	fi
+}
+
+function show_all_log()
+{
+	noneshow="\/AKMD2\|\/MediaProvider\|\/wpa_supplicant\|\/ExchangeService\|\/libEGL\|\/ThemeManager\|\/PackageManager\|\/LightsService\|\/Yamaha-MC1N2-Audio\|\/ConnectivityService\|W\/AudioService\|E\/SoundPool\|I\/wpa_supplicant\|D\/StatusBar\|D\/cell\|D\/dalvikvm\|\/NativeCrypto\|\/BufferQueue\|\/SurfaceTextureClient\|\/ADB_SERVICES\|\/TelephonyManagerEx\|\/IspDrv\|\/PipeMgrDrv\|\/WifiNative-wlan0\|\/WifiCommon\|\/WifiStateMachine\|\/StateMachine\|\/InputReader\|\/SocketClient\|\/iQiyiPushService\|\/audio_hw_primary\|\/SurfaceFlinger"
+	echo "----------------------------LINES CONTAINS ONE OF FOLLOWING WILL NOT SHOW:----------------------------"
+	echo "$noneshow"
+	noneshow=`echo $noneshow`
+	$adb | grep -iv "$noneshow"
 }
 
 source basic-method
@@ -63,11 +110,9 @@ adb devices
 adb="adb -s $dev logcat"
 #pid of the selected package
 pid=""
+
 #clear logcat
-$adb -c;
-
-
-noneshow="\/AKMD2\|\/MediaProvider\|\/wpa_supplicant\|dalvikvm\|ExchangeService\|libEGL\|ThemeManager\|PackageManager\|LightsService\|Yamaha-MC1N2-Audio\|\/Yunio\|\/ConnectivityService\|W\/AudioService\|E\/SoundPool\|I\/wpa_supplicant\|D\/StatusBar\|D\/cell\|D\/dalvikvm\|\/NativeCrypto\|\/BufferQueue\|\/SurfaceTextureClient\|\/ADB_SERVICES\|\/TelephonyManagerEx\|\/IspDrv\|\/PipeMgrDrv\|\/IspDrv\|\/WifiNative-wlan0\|\/WifiCommon\|\/WifiStateMachine\|\/StateMachine\|\/InputReader\|\/SocketClient\|\/SurfaceFlinger"
+#$adb -c;
 
 if [ "$1" ];then
     while getopts "d:hp:t:v:" arg #选项后面的冒号表示该选项需要参数
@@ -81,7 +126,7 @@ if [ "$1" ];then
                 exit 0
                 ;;
              p)
-				choose_package
+				show_process_log
                 ;;
              t)
 				set_tag
@@ -92,27 +137,13 @@ if [ "$1" ];then
              ?) echo
 				echo
 				echo "!!!unkown OPTION: -$arg"
+				show_all_log
 				echo
 				echo
-				exit
+				exit 0
         esac
     done
-fi
-
-######SHOW LOGS######
-if [ "$noneshow" ]; then
-	echo
-	echo "----------------------------LINES CONTAINS ONE OF FOLLOWING WILL NOT SHOW:----------------------------"
-	echo
-	echo "$noneshow"
-	echo
-fi
-echo
-echo
-if [ "$pid" ]; then
-    # echo "$adb			pid is $pid"
-    $adb | grep $pid\)\:
 else
-	$adb | grep -iv $noneshow
+	show_all_log
 fi
 

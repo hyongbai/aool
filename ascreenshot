@@ -16,6 +16,7 @@ echo
 
 if [ `uname` ==  "Darwin" ]; then
     #eog $file
+    open $file
     echo "U R USING MAC"
 else
     eog $file
