@@ -103,7 +103,8 @@ function show_all_log()
 	$adb | grep -iv "$noneshow"
 }
 
-source basic-method
+source basic-method.sh
+
 has_device
 check_device
 adb devices

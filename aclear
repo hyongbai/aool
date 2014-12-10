@@ -1,8 +1,11 @@
 #!/bin/bash
-
-if [ $1 ];then
-    adb shell pm clear $1
-    exit
+source basic-method.sh
+PKG_NAME=$1
+if [ ! $PKG_NAME ]; then
+	echo "------------------------OOPS:(  Please tell me which pkg! ------------------------"
+	exit
 fi
 
-echo "PLEASE INPUT A PKG NAME"
+if [ $PKG_NAME ];then
+    adb shell pm clear $1
+fi
