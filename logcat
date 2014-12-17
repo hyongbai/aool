@@ -146,7 +146,8 @@ function show_all_log()
 	eval "$adb | grep -iv \"$SYS_USELESS_TAG\""
 }
 
-source basic-method
+source basic-method.sh
+
 has_device
 check_device
 adb devices

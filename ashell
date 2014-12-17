@@ -2,7 +2,8 @@
 if [ $1 ]; then
     dev="$1"
 fi 
-source $toolbin/basic-method
+source basic-method.sh
 check_device
+echo "$dev"
 adb -s $dev shell
 
