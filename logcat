@@ -79,10 +79,10 @@ function hide_line()
 {
 	if [ !"$OPTARG" ]; then
 		return
-	elif [ "$noneshow" ]; then
-		noneshow="$noneshow\|$OPTARG"
+	elif [ "$SYS_USELESS_TAG" ]; then
+		SYS_USELESS_TAG="$SYS_USELESS_TAG\|$OPTARG"
 	else
-		noneshow="$OPTARG"
+		SYS_USELESS_TAG="$OPTARG"
 	fi
 }
 
@@ -91,16 +91,59 @@ function set_tag()
 	if [ "$OPTARG" ]; then
 		echo "TAG is $OPTARG"
 		adb="$adb -s $OPTARG"
+		eval "$adb"
 	fi
 }
 
 function show_all_log()
 {
-	noneshow="\/AKMD2\|\/MediaProvider\|\/wpa_supplicant\|\/ExchangeService\|\/libEGL\|\/ThemeManager\|\/PackageManager\|\/LightsService\|\/Yamaha-MC1N2-Audio\|\/ConnectivityService\|W\/AudioService\|E\/SoundPool\|I\/wpa_supplicant\|D\/StatusBar\|D\/cell\|D\/dalvikvm\|\/NativeCrypto\|\/BufferQueue\|\/SurfaceTextureClient\|\/ADB_SERVICES\|\/TelephonyManagerEx\|\/IspDrv\|\/PipeMgrDrv\|\/WifiNative-wlan0\|\/WifiCommon\|\/WifiStateMachine\|\/StateMachine\|\/InputReader\|\/SocketClient\|\/iQiyiPushService\|\/audio_hw_primary\|\/SurfaceFlinger"
+	SYS_USELESS_TAG="\/AKMD2"
+	SYS_USELESS_TAG+="\|\/MediaProvider"
+	SYS_USELESS_TAG+="\|\/ExchangeService"
+	SYS_USELESS_TAG+="\|\/libEGL"
+	SYS_USELESS_TAG+="\|\/ThemeManager"
+	SYS_USELESS_TAG+="\|\/PackageManager"
+	SYS_USELESS_TAG+="\|\/LightsService"
+	SYS_USELESS_TAG+="\|\/Yamaha-MC1N2-Audio"
+	SYS_USELESS_TAG+="\|\/ConnectivityService"
+	SYS_USELESS_TAG+="\|\/AudioService"
+	SYS_USELESS_TAG+="\|\/SoundPool"
+	SYS_USELESS_TAG+="\|\/StatusBar"
+	SYS_USELESS_TAG+="\|\/cell"
+	SYS_USELESS_TAG+="\|\/dalvikvm"
+	SYS_USELESS_TAG+="\|\/NativeCrypto"
+	SYS_USELESS_TAG+="\|\/BufferQueue"
+	SYS_USELESS_TAG+="\|\/SurfaceTextureClient"
+	SYS_USELESS_TAG+="\|\/ADB_SERVICES"
+	SYS_USELESS_TAG+="\|\/TelephonyManagerEx"
+	SYS_USELESS_TAG+="\|\/IspDrv"
+	SYS_USELESS_TAG+="\|\/PipeMgrDrv"
+	SYS_USELESS_TAG+="\|\/WifiNative-wlan0"
+	SYS_USELESS_TAG+="\|\/WifiCommon"
+	SYS_USELESS_TAG+="\|\/WifiStateMachine"
+	SYS_USELESS_TAG+="\|\/StateMachine"
+	SYS_USELESS_TAG+="\|\/InputReader"
+	SYS_USELESS_TAG+="\|\/SocketClient"
+	SYS_USELESS_TAG+="\|\/iQiyiPushService"
+	SYS_USELESS_TAG+="\|\/audio_hw_primary"
+	SYS_USELESS_TAG+="\|\/SurfaceFlinger"
+	SYS_USELESS_TAG+="\|\/WifiStateMachine"
+	SYS_USELESS_TAG+="\|\/GmsNetworkLocationProvi"
+	SYS_USELESS_TAG+="\|\/WifiService"
+	SYS_USELESS_TAG+="\|\/ActivityManager"
+	SYS_USELESS_TAG+="\|\/ConnectivityService"
+	SYS_USELESS_TAG+="\|\/ConnectivityManager"
+	SYS_USELESS_TAG+="\|\/GA-SERVICE"
+	SYS_USELESS_TAG+="\|\/ClClient"
+	SYS_USELESS_TAG+="\|\/wpa_supplicant"
+	SYS_USELESS_TAG+="\|\/ThermalEngine"
+	SYS_USELESS_TAG+="\|I\/rmt_storage" #/system/bin/rmt_storage
+	SYS_USELESS_TAG+="\|V\/GpsLocationProvider" #system_server
+	SYS_USELESS_TAG+="\|D\/TelephonyNetworkFactory" #com.android.phone
 	echo "----------------------------LINES CONTAINS ONE OF FOLLOWING WILL NOT SHOW:----------------------------"
-	echo "$noneshow"
-	noneshow=`echo $noneshow`
-	$adb | grep -iv "$noneshow"
+	echo "$SYS_USELESS_TAG"
+	SYS_USELESS_TAG=`echo $SYS_USELESS_TAG`
+	eval "$adb | grep -iv \"$SYS_USELESS_TAG\""
 }
 
 source basic-method
