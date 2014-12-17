@@ -137,11 +137,23 @@ function show_all_log()
 	SYS_USELESS_TAG+="\|\/ClClient"
 	SYS_USELESS_TAG+="\|\/wpa_supplicant"
 	SYS_USELESS_TAG+="\|\/ThermalEngine"
-	SYS_USELESS_TAG+="\|I\/rmt_storage" #/system/bin/rmt_storage
-	SYS_USELESS_TAG+="\|V\/GpsLocationProvider" #system_server
-	SYS_USELESS_TAG+="\|D\/TelephonyNetworkFactory" #com.android.phone
-	echo "----------------------------LINES CONTAINS ONE OF FOLLOWING WILL NOT SHOW:----------------------------"
-	echo "$SYS_USELESS_TAG"
+	SYS_USELESS_TAG+="\|\/rmt_storage" #/system/bin/rmt_storage
+	SYS_USELESS_TAG+="\|\/GpsLocationProvider" #system_server
+	SYS_USELESS_TAG+="\|\/TelephonyNetworkFactory" #com.android.phone
+
+
+
+	echo "----------------------------LINES CONTAINS ONE OF FOLLOWING WILL BE HIDDEN:----------------------------"
+	echo "-"
+	echo "-"
+	echo "-"
+	SYS_USELESS_TAG_ECHO=${SYS_USELESS_TAG//\\/}
+	SYS_USELESS_TAG_ECHO=${SYS_USELESS_TAG_ECHO//\//}
+	echo -e "${SYS_USELESS_TAG_ECHO//\|/\n}"
+	echo "-"
+	echo "-"
+	echo "-"
+	echo "-------------------------------------------------------------------------------------------------------"
 	SYS_USELESS_TAG=`echo $SYS_USELESS_TAG`
 	eval "$adb | grep -iv \"$SYS_USELESS_TAG\""
 }
