@@ -11,6 +11,9 @@
 # generated files
 bin/
 gen/
+*.apk
+*.ap_
+*.dex
 
 local.properties
 
@@ -23,6 +26,8 @@ project.properties
 #temp files
 *.swp
 *~
+*.iws
+*.ipr
 # lint
 lint.xml
 
@@ -41,4 +46,7 @@ auto.prop
 .idea
 .gradle
 build
+
+
+
 

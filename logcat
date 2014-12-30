@@ -19,7 +19,7 @@ function help_logcat()
 function wrap_log_pid()
 {
 	if [ $1 ]; then
-		echo "$1\)\:"
+		echo "$1)\:"
 	fi
 }
 
@@ -38,14 +38,12 @@ function choose_package()
 
     #get PID
     if [ "$OPTARG" ]; then
-        #pid=`adb shell ps |grep $OPTARG | sed '1!d' |awk '{print $'$num'}'`
-        pid=`adb shell ps |grep $OPTARG|awk '{print $'$num'}'`
+        PID=`adb shell ps |grep $OPTARG|awk '{print $'$num'}'`
 	fi
-
 	#
 	tempWrappedIdFile=".tempWrappedIdFile"
-	if [ "$pid" ]; then
-		echo "$pid" | while read line
+	if [ "${PID}" ]; then
+		echo "${PID}" | while read line
 		do
 			wrappedId=`wrap_log_pid $line`
 			if [ "$multiPID" ]; then
@@ -57,19 +55,19 @@ function choose_package()
 	else
 		return
 	fi
-	pid=`cat $tempWrappedIdFile`
+	PID=`cat $tempWrappedIdFile`
 	rm $tempWrappedIdFile
-	echo "$pid"
 }
 
 function show_process_log()
 {
 	choose_package
 	######SHOW LOGS######
-
-	echo
-	if [ "$pid" ]; then
-	    $adb | grep $pid\)\:
+	echo "PID=\"${PID}\""
+	if [ "${PID}" ]; then
+	    command="$adb | grep \"${PID}\""
+	    # echo "command={$command}"
+	    eval "$command"
 	else
 		show_all_log
 	fi
@@ -155,7 +153,7 @@ function show_all_log()
 	echo "-"
 	echo "-------------------------------------------------------------------------------------------------------"
 	SYS_USELESS_TAG=`echo $SYS_USELESS_TAG`
-	eval "$adb | grep -iv \"$SYS_USELESS_TAG\""
+	eval "$adb | grep -iv \"${SYS_USELESS_TAG}\""
 }
 
 source basic-method.sh
@@ -164,11 +162,9 @@ has_device
 check_device
 adb devices
 adb="adb -s $dev logcat"
-#pid of the selected package
-pid=""
-
 #clear logcat
 #$adb -c;
+
 
 if [ "$1" ];then
     while getopts "d:hp:t:v:" arg #选项后面的冒号表示该选项需要参数
