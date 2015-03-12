@@ -114,6 +114,7 @@ function show_all_log()
 	SYS_USELESS_TAG+="\|\/SurfaceTextureClient"
 	SYS_USELESS_TAG+="\|\/ADB_SERVICES"
 	SYS_USELESS_TAG+="\|\/TelephonyManagerEx"
+	SYS_USELESS_TAG+="\|\/Telephony"
 	SYS_USELESS_TAG+="\|\/IspDrv"
 	SYS_USELESS_TAG+="\|\/PipeMgrDrv"
 	SYS_USELESS_TAG+="\|\/WifiNative-wlan0"
@@ -136,8 +137,16 @@ function show_all_log()
 	SYS_USELESS_TAG+="\|\/wpa_supplicant"
 	SYS_USELESS_TAG+="\|\/ThermalEngine"
 	SYS_USELESS_TAG+="\|\/rmt_storage" #/system/bin/rmt_storage
-	SYS_USELESS_TAG+="\|\/GpsLocationProvider" #system_server
+	SYS_USELESS_TAG+="\|\/GpsLocationProvider(" #system_server
 	SYS_USELESS_TAG+="\|\/TelephonyNetworkFactory" #com.android.phone
+	SYS_USELESS_TAG+="\|I\/art\ \ \ \ \ (" 
+	SYS_USELESS_TAG+="\|I\/Choreographer(" 
+	SYS_USELESS_TAG+="\|W\/Resources(" 
+	SYS_USELESS_TAG+="\|I\/GmsBackupTransport(" 
+	SYS_USELESS_TAG+="\|I\/PFTBT\ \ \ (" 
+	SYS_USELESS_TAG+="\|\/Finsky\ \ (" 
+	SYS_USELESS_TAG+="\|\/MarketUpdateReceiver(" 
+	SYS_USELESS_TAG+="\|\/MobileDataStateTracker(" 
 
 
 

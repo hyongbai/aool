@@ -1,0 +1,14 @@
+#
+
+APK_FILE="";
+APK_FILE_NAME=""
+
+#de-pack
+apktool d $APK_FILE $APK_FILE_NAME
+
+#re-pack
+apktool b $APK_FILE_NAME $APK_FILE
+
+#resign
+#todo
+

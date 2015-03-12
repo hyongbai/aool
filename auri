@@ -6,11 +6,13 @@ function print_help()
     echo "TIPS:"
     echo "  if you want to tel, input tel://{phoneNum}"
     echo "  if you want to browser a website, input http://(or https://)google.com"
+    echo "  market: \"market://details?id=com.boxer.email\""
     echo "--------"
 }
 
 if [ $1 ]; then
     echo $1
+    #am start -n "component" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
     adb shell am start -a android.intent.action.VIEW --user 0 -d $1
 else
     echo -e "PLEASE INPUT URL"

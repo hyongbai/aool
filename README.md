@@ -22,3 +22,9 @@ Clear app's data, same as "Settings -> Apps -> App info -> CLEAR DATA".
 `Usage`: *aclear {pkgname}*
 > aclear *me.yourbay.lightme*
 
+acur-Activity
+---
+
+Show name of activity shown in device
+
+
