@@ -28,3 +28,11 @@ acur-Activity
 Show name of activity shown in device
 
 
+
+adb-init
+===
+
+restarat your adb when can't connect your devices
+
+logcat
+===

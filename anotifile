@@ -1,0 +1,10 @@
+#!/bin/bash
+FILE_PATH="${1}"
+
+
+if [ ! "${FILE_PATH}" ]; then
+    echo "PLEASE tell me the PATH"
+    exit
+fi
+
+adb shell am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d "file://${FILE_PATH}"
