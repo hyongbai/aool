@@ -1,2 +1,13 @@
 #!/bin/bash
-adb shell "dumpsys window windows | grep -E 'mCurrentFocus|mFocusedApp'"
+
+# show all windows
+echo "ALL WINDOWS"
+echo
+adb shell "dumpsys window windows" |  grep '  Window #'
+echo
+echo
+echo
+echo "CURRENT Window and Activity"
+echo
+# show current windows
+adb shell "dumpsys window windows" | grep -E 'mCurrentFocus|mFocusedApp'

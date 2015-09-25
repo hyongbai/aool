@@ -1,0 +1,64 @@
+#!/bin/bash
+
+sigma()
+{
+	LISTS="${1}"
+	if [ ! "${LISTS}" ] ; then
+		echo "0"
+	else
+		echo $(echo "${LISTS}" | awk '{print $3}' | awk '{sum+=$1}END{print sum}')
+	fi
+}
+
+humm_size()
+{
+	SIZE="${1}"
+	if [ ! "${SIZE}" ]; then
+		echo "0B"
+	else
+		numfmt --to=iec --suffix=B --format="%3f" "${SIZE}"
+	fi
+}
+
+gen_basic()
+{
+	FILE_LIST_ALL=$(unzip -v "${FILE_PATH}")
+	FILE_LIST_ASSETS=$(echo "${FILE_LIST_ALL}" |  grep " assets/")
+	FILE_LIST_RES=$(echo "${FILE_LIST_ALL}" |  grep " res/")
+	FILE_LIST_DEX=$(echo "${FILE_LIST_ALL}" |  grep "\.dex")
+	FILE_LIST_LIB=$(echo "${FILE_LIST_ALL}" |  grep " lib/")
+	FILE_LIST_META=$(echo "${FILE_LIST_ALL}" |  grep " META-INF/")
+	FILE_LIST_ARSC=$(echo "${FILE_LIST_ALL}" |  grep " resources.arsc")
+}
+
+unkown()
+{
+	printf "%-20s%-5s\n" $1 $2
+}
+
+print_basic()
+{
+	unkown "ALL" $(humm_size "$(sigma "$FILE_LIST_ALL")")
+	unkown "ASSETS"  $(humm_size "$(sigma "$FILE_LIST_ASSETS")")
+	unkown "DEX"  $(humm_size "$(sigma "$FILE_LIST_DEX")")
+	unkown "RES"  $(humm_size "$(sigma "$FILE_LIST_RES")")
+	unkown "LIB"  $(humm_size "$(sigma "$FILE_LIST_LIB")")
+	unkown "META"  $(humm_size "$(sigma "$FILE_LIST_META")")
+	unkown "ARSC"  "$(humm_size "$(sigma "${FILE_LIST_ARSC}")")"
+}
+
+
+####
+FILE_PATH="${1}"
+
+if [ ! -f "${FILE_PATH}" ]; then
+	echo "please input a valid file"
+	exit
+fi
+
+####
+gen_basic
+print_basic
+
+#
+
