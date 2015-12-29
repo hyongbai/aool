@@ -27,7 +27,9 @@ lint.xml
 #android-app-pack
 auto.prop
 
+#OSX tempeproary file/folder
 .DS_Store
+__MACOSX/
 
 #annotation
 .factorypath

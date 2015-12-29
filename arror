@@ -1,0 +1,4 @@
+
+adb logcat | grep "AndroidRunTime\|System.err"
+
+

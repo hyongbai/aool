@@ -7,6 +7,7 @@ function print_help()
     echo "  if you want to tel, input tel://{phoneNum}"
     echo "  if you want to browser a website, input http://(or https://)google.com"
     echo "  market: \"market://details?id=com.boxer.email\""
+    echo "  map: \"geo:38.899533,-77.036476\""
     echo "--------"
 }
 

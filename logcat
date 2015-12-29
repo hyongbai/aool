@@ -19,7 +19,7 @@ function help_logcat()
 function wrap_log_pid()
 {
 	if [ $1 ]; then
-		echo "$1)\:"
+		echo "$1"
 	fi
 }
 
