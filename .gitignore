@@ -27,9 +27,7 @@ lint.xml
 #android-app-pack
 auto.prop
 
-#OSX tempeproary file/folder
 .DS_Store
-__MACOSX/
 
 #annotation
 .factorypath
@@ -48,6 +46,7 @@ gradle-app.setting
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
 
-# SVN
-.svn/
 
+
+*.index
+*.hprof
