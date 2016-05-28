@@ -1,11 +1,11 @@
 #!/bin/bash
 # force close running pkg
 source basic-method.sh
+
 PKG_NAME=$1
 
 if [ ! $PKG_NAME ]; then
-	echo "------------------------OOPS:(  Please tell me which pkg! ------------------------"
-	exit
+    PKG_NAME=$(get_current_pkg)
 fi
 
 echo "------------------------Force closing $PKG_NAME ------------------------"

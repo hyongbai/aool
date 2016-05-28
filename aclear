@@ -2,10 +2,9 @@
 source basic-method.sh
 PKG_NAME=$1
 if [ ! $PKG_NAME ]; then
-	echo "------------------------OOPS:(  Please tell me which pkg! ------------------------"
-	exit
+    PKG_NAME=$(get_current_pkg)
 fi
 
 if [ $PKG_NAME ];then
-    adb shell pm clear $1
+    adb shell pm clear "${PKG_NAME}"
 fi

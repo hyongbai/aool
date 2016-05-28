@@ -36,3 +36,8 @@ function has_device()
 		    exit
 	fi
 }
+
+function get_current_pkg()
+{
+    adb shell "dumpsys window windows" | grep -E 'mFocusedApp' | awk -F/ '{print $1}' | awk -F"ActivityRecord" '{print $2}' | awk '{print $3}'
+}
