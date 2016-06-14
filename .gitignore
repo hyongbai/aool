@@ -47,6 +47,6 @@ gradle-app.setting
 !gradle-wrapper.jar
 
 
-
+*.trace
 *.index
 *.hprof
