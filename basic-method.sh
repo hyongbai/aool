@@ -39,5 +39,6 @@ function has_device()
 
 function get_current_pkg()
 {
-    adb shell "dumpsys window windows" | grep -E 'mFocusedApp' | awk -F/ '{print $1}' | awk -F"ActivityRecord" '{print $2}' | awk '{print $3}'
+    # adb shell "dumpsys window windows" | grep -E 'mFocusedApp' | awk -F/ '{print $1}' | awk -F"ActivityRecord" '{print $2}' | awk '{print $3}'
+    adb shell "dumpsys window windows" | grep -E 'mCurrentFocus' | awk -F{ '{print $2}' | awk '{print $NF}' | awk -F/ '{print $1}' 
 }
