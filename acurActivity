@@ -1,13 +1,22 @@
 #!/bin/bash
 
+show_all()
+{
+	echo "ALL WINDOWS:"
+	adb shell "dumpsys window windows" |  grep '  Window #'
+}
+
+show_focus()
+{
+	echo "CURRENT Window and Activity:"
+	# show current windows
+	adb shell "dumpsys window windows" | grep -E 'mCurrentFocus|mFocusedApp'
+}
 # show all windows
-echo "ALL WINDOWS"
-echo
-adb shell "dumpsys window windows" |  grep '  Window #'
-echo
-echo
-echo
-echo "CURRENT Window and Activity"
-echo
-# show current windows
-adb shell "dumpsys window windows" | grep -E 'mCurrentFocus|mFocusedApp'
+
+if [ "$1" ]; then
+	show_all
+	echo && echo && echo
+fi
+
+show_focus

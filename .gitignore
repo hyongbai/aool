@@ -40,6 +40,8 @@ auto.prop
 .gradle/
 build/
 
+/captures/
+
 # Ignore Gradle GUI config
 gradle-app.setting
 

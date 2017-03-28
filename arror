@@ -1,4 +1,4 @@
-
-adb logcat | grep "AndroidRunTime\|System.err"
+#!/bin/bash
+adb logcat | grep -i "AndroidRuntime"
 
 
