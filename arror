@@ -1,4 +1,0 @@
-#!/bin/bash
-adb logcat | grep -i "AndroidRuntime"
-
-

@@ -1,5 +1,0 @@
-#!/bin/bash
-sudo adb kill-server;
-sudo adb start-server;
-#reconnect $1;
-adb devices
