@@ -20,14 +20,13 @@ project.properties
 *~
 *.iws
 *.ipr
+.DS_Store
 
 # lint
 lint.xml
 
 #android-app-pack
 auto.prop
-
-.DS_Store
 
 #annotation
 .factorypath
@@ -39,16 +38,21 @@ auto.prop
 .idea/
 .gradle/
 build/
-
 /captures/
 
-# Ignore Gradle GUI config
-gradle-app.setting
+# gradle
+gradle-app.setting # Ignore Gradle GUI config
+!gradle-wrapper.jar # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
-
-
+# dump
 *.trace
 *.index
 *.hprof
+
+# vscode
+.vscode
+*.code-workspace
+
+# python
+*.pyc
+*.pyo
