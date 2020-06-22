@@ -39,6 +39,7 @@ auto.prop
 .gradle/
 build/
 /captures/
+!**/src/**/build
 
 # gradle
 gradle-app.setting # Ignore Gradle GUI config
@@ -185,3 +186,17 @@ iOSInjectionProject/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.gitignore.io/api/swift,xcode
+
+# flutter
+.DS_Store
+**/.dart_tool/
+**/.packages
+**/.pub/
+**/pubspec.lock
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/GeneratedPluginRegistrant.java
+**/GeneratedPluginRegistrant.h
+**/GeneratedPluginRegistrant.m
+
+

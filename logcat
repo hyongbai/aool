@@ -140,14 +140,14 @@ function show_all_log()
 	SYS_USELESS_TAG+="\|\/rmt_storage" #/system/bin/rmt_storage
 	SYS_USELESS_TAG+="\|\/GpsLocationProvider(" #system_server
 	SYS_USELESS_TAG+="\|\/TelephonyNetworkFactory" #com.android.phone
-	SYS_USELESS_TAG+="\|I\/art\ \ \ \ \ (" 
-	SYS_USELESS_TAG+="\|I\/Choreographer(" 
-	SYS_USELESS_TAG+="\|W\/Resources(" 
-	SYS_USELESS_TAG+="\|I\/GmsBackupTransport(" 
-	SYS_USELESS_TAG+="\|I\/PFTBT\ \ \ (" 
-	SYS_USELESS_TAG+="\|\/Finsky\ \ (" 
-	SYS_USELESS_TAG+="\|\/MarketUpdateReceiver(" 
-	SYS_USELESS_TAG+="\|\/MobileDataStateTracker(" 
+	SYS_USELESS_TAG+="\|I\/art\ \ \ \ \ ("
+	SYS_USELESS_TAG+="\|I\/Choreographer("
+	SYS_USELESS_TAG+="\|W\/Resources("
+	SYS_USELESS_TAG+="\|I\/GmsBackupTransport("
+	SYS_USELESS_TAG+="\|I\/PFTBT\ \ \ ("
+	SYS_USELESS_TAG+="\|\/Finsky\ \ ("
+	SYS_USELESS_TAG+="\|\/MarketUpdateReceiver("
+	SYS_USELESS_TAG+="\|\/MobileDataStateTracker("
 
 
 
@@ -171,7 +171,7 @@ source basic-method.sh
 has_device
 check_device
 adb devices
-adb="adb -s $dev logcat"
+adb="adb -s $dev logcat -v color"
 #clear logcat
 #$adb -c;
 
@@ -208,4 +208,3 @@ if [ "$1" ];then
 else
 	show_all_log
 fi
-
